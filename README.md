@@ -43,7 +43,7 @@ http://localhost:8080/threegame/start-game/manual/54
 ```
 http://localhost:8081/threegame/start-game/automatic/false 
 ```
-4. first player start the game with manual selection of the initial number (100 for example)
+4. second player start the game with manual selection of the initial number (100 for example)
 ```
 http://localhost:8081/threegame/start-game/manual/100
 ```
