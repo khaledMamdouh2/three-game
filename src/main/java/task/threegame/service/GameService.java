@@ -2,10 +2,7 @@ package task.threegame.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import task.threegame.domain.GameMove;
 import task.threegame.exception.SecondPlayerNotActiveException;
 import task.threegame.util.constants.GameMessages;
@@ -25,14 +22,13 @@ public class GameService {
 
     private Integer newNumber;
 
-    public GameService( GameHelper gameHelper) {
+    public GameService(GameHelper gameHelper) {
         this.gameHelper = gameHelper;
     }
 
     public void startGame(Integer initialNumber) {
         if (gameHelper.isSecondPlayerAvailable()) {
-            log.info("the game is starting with initial number " + initialNumber);
-            log.info("sending {} to the other player" , initialNumber);
+            log.info("the game is starting with initial number {} and sending it to the other player" , initialNumber);
             GameMove gameMove = new GameMove(initialNumber);
             gameHelper.sendGameMoveToOtherPlayer(gameMove);
         } else {
@@ -52,7 +48,7 @@ public class GameService {
         } else {
             addedNumber = (number + 1) % 3 == 0 ? 1 : -1;
         }
-        newNumber = gameHelper.getNewNumber(number , addedNumber);
+        newNumber = gameHelper.getNewNumber(number, addedNumber);
         log.info(gameHelper.getSuitableUserMessage(number, addedNumber));
         if (newNumber == 1) {
             log.info(GameMessages.WINNER);
@@ -62,6 +58,7 @@ public class GameService {
             log.info("sending {} to the other player", myMove.getNumber());
             gameHelper.sendGameMoveToOtherPlayer(myMove);
         } else {
+            log.info(GameMessages.SECOND_PLAYER_NOT_AVAILABLE_ANYMORE);
             throw new SecondPlayerNotActiveException(GameMessages.SECOND_PLAYER_NOT_AVAILABLE_ANYMORE);
         }
     }

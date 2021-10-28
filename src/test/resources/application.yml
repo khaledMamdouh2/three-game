@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: player_one
+
+game:
+  second-player:
+    play-url: http://localhost:8081/threegame/play
+    start-url: http://localhost:8081/threegame/start-game
+  random-number-min: 10
+  random-number-max: 1000
